@@ -885,14 +885,53 @@
            CONTACT SECTION
         ========================================================== */
 
+        .contact-flex {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: stretch;
+            margin-top: 20px;
+        }
+
         .contact-card {
             background: rgba(255,255,255,0.08);
             border: 1px solid rgba(255,255,255,0.15);
             border-radius: 16px;
             padding: 28px 32px;
-            margin-top: 16px;
             display: inline-block;
             min-width: 280px;
+        }
+
+        .portfolio-card {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 16px;
+            padding: 28px 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 280px;
+            gap: 15px;
+        }
+
+        .portfolio-btn {
+            background: var(--tuscan-sun);
+            color: var(--black-forest);
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: 0.3s;
+            text-align: center;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        .portfolio-btn:hover {
+            background: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
         }
 
         .contact-card .contact-name {
@@ -1435,25 +1474,28 @@
 
                 <p>Feel free to reach out — I'd love to hear from you.</p>
 
-                <div class="contact-card">
-                    <div class="contact-name">ABHIJIT KUMAR MISRA (JITU)</div>
-                    <div class="contact-sub">Jitu's Creative Works</div>
-                    <div class="contact-row">
-                        <span class="contact-label">✉ Email</span>
-                        <span class="contact-val">
-                            abhijit.jitu4u@rediffmail.com<br>
-                            abhijit.jitu4u@gmail.com
-                        </span>
+                <div class="contact-flex">
+                    <div class="contact-card">
+                        <div class="contact-name">ABHIJIT KUMAR MISRA (JITU)</div>
+                        <div class="contact-sub">Jitu's Creative Works</div>
+                        <div class="contact-row">
+                            <span class="contact-label">✉ Email</span>
+                            <span class="contact-val">
+                                abhijit.jitu4u@rediffmail.com<br>
+                                abhijit.jitu4u@gmail.com
+                            </span>
+                        </div>
+                        <div class="contact-row">
+                            <span class="contact-label">📞 Phone</span>
+                            <span class="contact-val">(+91) 9401071282</span>
+                        </div>
                     </div>
-                    <div class="contact-row">
-                        <span class="contact-label">📞 Phone</span>
-                        <span class="contact-val">(+91) 9401071282</span>
+
+                    <div class="portfolio-card">
+                        <a href="https://jitu85.github.io/Abhijit-Misra/" target="_blank" class="portfolio-btn">My Portfolio</a>
+                        <a class="back" href="#top" style="margin-top: 0;">Back to Top</a>
                     </div>
                 </div>
-
-                <a class="back" href="#top">
-                    Back to Top
-                </a>
 
             </div>
 
