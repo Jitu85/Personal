@@ -1,0 +1,1789 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Colours of My Life</title>
+
+    <style>
+        /* =========================================================
+           COLOUR PALETTE
+        ========================================================== */
+
+        :root {
+
+            --olive-leaf:    #606c38;
+            --black-forest:  #283618;
+            --cornsilk:      #fefae0;
+            --sunlit-clay:   #dda15e;
+            --copperwood:    #bc6c25;
+
+            --charcoal-blue: #264653;
+            --verdigris:     #2a9d8f;
+            --tuscan-sun:    #e9c46a;
+            --sandy-brown:   #f4a261;
+            --burnt-peach:   #e76f51;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Georgia, 'Times New Roman', serif;
+        }
+
+        /* =========================================================
+           LOGIN PAGE
+        ========================================================== */
+
+        #loginPage {
+            width: 100%;
+            height: 100vh;
+
+            background:
+                linear-gradient(135deg,
+                    var(--olive-leaf),
+                    var(--black-forest),
+                    var(--sunlit-clay),
+                    var(--copperwood));
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            overflow: hidden;
+            position: relative;
+        }
+
+        .login-card {
+
+            width: 420px;
+            padding: 40px;
+
+            background: rgba(254, 250, 224, 0.15);
+
+            border-radius: 20px;
+
+            backdrop-filter: blur(12px);
+
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+
+            text-align: center;
+
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .main-title {
+
+            color: var(--cornsilk);
+            font-size: 42px;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .author {
+
+            color: var(--cornsilk);
+            margin-bottom: 35px;
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .login-card input {
+
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            outline: none;
+            font-family: Georgia, serif;
+        }
+
+        .login-card button {
+
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            background: var(--black-forest);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: Georgia, serif;
+        }
+
+        .login-card button:hover {
+
+            background: var(--copperwood);
+            transform: translateY(-2px);
+        }
+
+        #error {
+
+            margin-top: 15px;
+            color: #ffdddd;
+            font-weight: bold;
+        }
+
+        /* =========================================================
+           SYNOPSIS PAGE
+        ========================================================== */
+
+        #synopsisPage {
+
+            display: none;
+            width: 100%;
+            min-height: 100vh;
+
+            background:
+                linear-gradient(160deg,
+                    #1a2a1a 0%,
+                    #283618 25%,
+                    #3d5a3e 50%,
+                    #5c4a2a 75%,
+                    #7a4a1a 100%);
+
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle decorative bokeh circles */
+        #synopsisPage::before {
+            content: '';
+            position: absolute;
+            top: -120px;
+            right: -120px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle,
+                rgba(221,161,94,0.12) 0%,
+                transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        #synopsisPage::after {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            left: -100px;
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle,
+                rgba(96,108,56,0.18) 0%,
+                transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .synopsis-wrapper {
+
+            position: relative;
+            z-index: 1;
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 60px 30px 50px;
+        }
+
+        /* Ornamental top rule */
+        .synopsis-ornament {
+
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 36px;
+        }
+
+        .synopsis-ornament hr {
+
+            flex: 1;
+            border: none;
+            border-top: 1px solid rgba(254, 250, 224, 0.25);
+        }
+
+        .synopsis-ornament span {
+
+            color: var(--sunlit-clay);
+            font-size: 22px;
+            letter-spacing: 6px;
+            opacity: 0.8;
+        }
+
+        /* SYNOPSIS heading */
+        .synopsis-heading {
+
+            text-align: center;
+            margin-bottom: 38px;
+        }
+
+        .synopsis-heading h2 {
+
+            font-family: Georgia, serif;
+            font-size: 13px;
+            font-weight: normal;
+            color: var(--sunlit-clay);
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            opacity: 0.85;
+        }
+
+        .synopsis-heading h1 {
+
+            font-family: Georgia, serif;
+            font-size: 44px;
+            font-weight: normal;
+            color: var(--cornsilk);
+            letter-spacing: 2px;
+            line-height: 1.2;
+        }
+
+        /* Text card */
+        .synopsis-card {
+
+            background: rgba(254, 250, 224, 0.07);
+            border: 1px solid rgba(254, 250, 224, 0.14);
+            border-radius: 18px;
+            padding: 40px 44px;
+            backdrop-filter: blur(14px);
+            margin-bottom: 50px;
+        }
+
+        .synopsis-card p {
+
+            font-family: Georgia, serif;
+            font-size: 17px;
+            color: rgba(254, 250, 224, 0.88);
+            line-height: 2;
+            margin-bottom: 22px;
+            text-align: justify;
+            text-justify: inter-word;
+        }
+
+        .synopsis-card p:last-child {
+
+            margin-bottom: 0;
+        }
+
+        .synopsis-card p.final-line {
+
+            font-style: italic;
+            color: var(--cornsilk);
+            font-size: 18px;
+            opacity: 0.95;
+            text-align: center;
+            margin-top: 28px;
+            border-top: 1px solid rgba(254,250,224,0.18);
+            padding-top: 24px;
+        }
+
+        /* =========================================================
+           SLIDE-TO-ENTER BUTTON
+        ========================================================== */
+
+        .slide-section {
+
+            text-align: center;
+            padding-bottom: 60px;
+        }
+
+        .slide-label {
+
+            font-family: Georgia, serif;
+            font-size: 13px;
+            letter-spacing: 4px;
+            color: rgba(254, 250, 224, 0.45);
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+
+        /* The track */
+        .slider-track {
+
+            position: relative;
+            width: 100%;
+            max-width: 420px;
+            height: 62px;
+            margin: 0 auto;
+
+            background: rgba(254, 250, 224, 0.08);
+            border: 1px solid rgba(254, 250, 224, 0.22);
+            border-radius: 31px;
+            overflow: hidden;
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        /* Animated fill that follows the thumb */
+        .slider-fill {
+
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg,
+                rgba(188, 108, 37, 0.55),
+                rgba(221, 161, 94, 0.75));
+            border-radius: 31px;
+            transition: width 0.05s linear;
+            pointer-events: none;
+        }
+
+        /* Track text "slide to enter" */
+        .slider-text {
+
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: Georgia, serif;
+            font-size: 14px;
+            letter-spacing: 2px;
+            color: rgba(254, 250, 224, 0.5);
+            white-space: nowrap;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        /* Chevron arrow hints */
+        .slider-arrows {
+
+            position: absolute;
+            top: 50%;
+            right: 22px;
+            transform: translateY(-50%);
+            display: flex;
+            gap: 3px;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .slider-arrows span {
+
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-right: 2px solid rgba(254,250,224,0.4);
+            border-top: 2px solid rgba(254,250,224,0.4);
+            transform: rotate(45deg);
+        }
+
+        /* The draggable thumb */
+        .slider-thumb {
+
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+
+            background: linear-gradient(135deg,
+                var(--sunlit-clay),
+                var(--copperwood));
+
+            box-shadow: 0 3px 14px rgba(0,0,0,0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: grab;
+            transition: box-shadow 0.2s;
+            touch-action: none;
+        }
+
+        .slider-thumb:active {
+            cursor: grabbing;
+        }
+
+        /* Arrow icon inside thumb */
+        .slider-thumb svg {
+
+            width: 22px;
+            height: 22px;
+            fill: none;
+            stroke: white;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* Success state */
+        .slider-track.success .slider-fill {
+            background: linear-gradient(90deg,
+                rgba(42,157,143,0.6),
+                rgba(42,157,143,0.85));
+            width: 100% !important;
+            transition: width 0.25s ease;
+        }
+
+        .slider-track.success .slider-thumb {
+            background: linear-gradient(135deg, #2a9d8f, #1d7a6e);
+            cursor: default;
+        }
+
+        .slider-track.success .slider-text {
+            opacity: 0;
+        }
+
+        .slider-track.success .slider-arrows {
+            opacity: 0;
+        }
+
+        /* Checkmark inside thumb on success */
+        .thumb-check {
+            display: none;
+        }
+
+        .slider-track.success .thumb-arrow {
+            display: none;
+        }
+
+        .slider-track.success .thumb-check {
+            display: block;
+        }
+
+        /* =========================================================
+           MAIN CONTENT PAGE
+        ========================================================== */
+
+        #contentPage {
+
+            display: none;
+            min-height: 100vh;
+
+            background:
+                linear-gradient(135deg,
+                    var(--charcoal-blue),
+                    var(--verdigris),
+                    var(--sandy-brown));
+
+            padding: 40px;
+        }
+
+        .container {
+
+            width: 90%;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .toc-box {
+
+            background: rgba(255, 255, 255, 0.12);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+        }
+
+        .toc-box h1 {
+
+            color: white;
+            margin-bottom: 20px;
+            font-size: 38px;
+        }
+
+        .toc-links {
+
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .toc-links a {
+
+            text-decoration: none;
+            background: white;
+            color: var(--charcoal-blue);
+            padding: 18px;
+            border-radius: 14px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .toc-links a:hover {
+
+            background: var(--tuscan-sun);
+            transform: translateY(-3px);
+        }
+
+        /* =========================================================
+           CONTENT SECTIONS
+        ========================================================== */
+
+        .section {
+
+            background: rgba(255, 255, 255, 0.15);
+            padding: 35px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(8px);
+        }
+
+        .section h2 {
+
+            color: white;
+            margin-bottom: 15px;
+            font-size: 32px;
+        }
+
+        .section p {
+
+            color: white;
+            line-height: 1.8;
+            font-size: 18px;
+        }
+
+        .back {
+
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: var(--tuscan-sun);
+            font-weight: bold;
+        }
+
+        .logout-btn {
+
+            margin-top: 20px;
+            background: var(--burnt-peach);
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .logout-btn:hover {
+
+            background: #d85c3e;
+        }
+
+        /* =========================================================
+           MOBILE RESPONSIVE
+        ========================================================== */
+
+        /* =========================================================
+           PASSWORD HINT ICON
+        ========================================================== */
+
+        .hint-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .hint-wrapper input {
+            margin-bottom: 0;
+            padding-right: 48px;
+        }
+
+        .hint-icon {
+            position: absolute;
+            right: 14px;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: rgba(188,108,37,0.75);
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            font-family: Georgia, serif;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            transition: background 0.2s;
+            flex-shrink: 0;
+            user-select: none;
+        }
+
+        .hint-icon:hover {
+            background: var(--copperwood);
+        }
+
+        .hint-tooltip {
+            display: none;
+            position: absolute;
+            bottom: calc(100% + 10px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(40,54,24,0.97);
+            color: var(--cornsilk);
+            font-size: 13px;
+            padding: 9px 16px;
+            border-radius: 10px;
+            white-space: nowrap;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.15);
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        .hint-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: rgba(40,54,24,0.97);
+        }
+
+        .hint-icon.active + .hint-tooltip,
+        .hint-tooltip.visible {
+            display: block;
+        }
+
+        /* =========================================================
+           GALLERY GRID
+        ========================================================== */
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        @media (max-width: 600px) {
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        }
+
+        .gallery-frame {
+            aspect-ratio: 1 / 1;
+            border: 4px solid rgba(233,196,106,0.7);
+            border-radius: 6px;
+            box-shadow:
+                0 0 0 1px rgba(255,255,255,0.1),
+                inset 0 0 0 2px rgba(233,196,106,0.25),
+                0 6px 20px rgba(0,0,0,0.35);
+            background: rgba(255,255,255,0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.35);
+            font-size: 13px;
+            font-style: italic;
+            letter-spacing: 0.5px;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+
+        .gallery-frame:hover {
+            transform: translateY(-4px) scale(1.03);
+            box-shadow:
+                0 0 0 1px rgba(255,255,255,0.18),
+                inset 0 0 0 2px rgba(233,196,106,0.45),
+                0 14px 32px rgba(0,0,0,0.45);
+        }
+
+        .gallery-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-frame .frame-num {
+            position: absolute;
+            bottom: 6px;
+            right: 9px;
+            font-size: 11px;
+            color: rgba(233,196,106,0.55);
+            font-style: normal;
+            letter-spacing: 1px;
+        }
+
+        .gallery-frame .placeholder-icon {
+            font-size: 28px;
+            margin-bottom: 6px;
+            opacity: 0.4;
+        }
+
+        /* =========================================================
+           ENTER DEEPER SECTION
+        ========================================================== */
+
+        .enter-deeper-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+            margin-top: 24px;
+        }
+
+        @media (max-width: 700px) {
+            .enter-deeper-grid { grid-template-columns: 1fr; }
+        }
+
+        .deeper-card {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 18px;
+            padding: 30px 22px;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            transition: transform 0.25s, background 0.25s, box-shadow 0.25s;
+            backdrop-filter: blur(8px);
+        }
+
+        .deeper-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.18);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.25);
+        }
+
+        .deeper-card .card-icon {
+            font-size: 36px;
+        }
+
+        .deeper-card .card-title {
+            font-size: 17px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
+        .deeper-card .card-desc {
+            font-size: 13px;
+            opacity: 0.7;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .deeper-card.sorrow-card {
+            border-color: rgba(231,111,81,0.55);
+            background: rgba(231,111,81,0.1);
+        }
+
+        .deeper-card.sorrow-card:hover {
+            background: rgba(231,111,81,0.2);
+        }
+
+        /* =========================================================
+           MITU PASSWORD MODAL
+        ========================================================== */
+
+        #mituOverlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(6px);
+        }
+
+        #mituOverlay.show {
+            display: flex;
+        }
+
+        .mitu-modal {
+            background: linear-gradient(135deg, #1a2a1a, #283618);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 20px;
+            padding: 40px;
+            width: 360px;
+            max-width: 90vw;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        .mitu-modal h3 {
+            color: var(--cornsilk);
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .mitu-modal p {
+            color: rgba(254,250,224,0.6);
+            font-size: 14px;
+            margin-bottom: 24px;
+            font-style: italic;
+        }
+
+        .mitu-modal input {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: Georgia, serif;
+            margin-bottom: 14px;
+            outline: none;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        .mitu-modal button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: var(--copperwood);
+            color: white;
+            font-size: 16px;
+            font-family: Georgia, serif;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-bottom: 10px;
+        }
+
+        .mitu-modal button:hover {
+            background: var(--sunlit-clay);
+        }
+
+        .mitu-modal .modal-cancel {
+            background: transparent;
+            color: rgba(254,250,224,0.5);
+            font-size: 14px;
+            padding: 8px;
+        }
+
+        .mitu-modal .modal-cancel:hover {
+            background: transparent;
+            color: var(--cornsilk);
+        }
+
+        #mituError {
+            color: #ffaaaa;
+            font-size: 13px;
+            margin-bottom: 10px;
+            min-height: 18px;
+        }
+
+        /* =========================================================
+           CONTACT SECTION
+        ========================================================== */
+
+        .contact-card {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 16px;
+            padding: 28px 32px;
+            margin-top: 16px;
+            display: inline-block;
+            min-width: 280px;
+        }
+
+        .contact-card .contact-name {
+            font-size: 21px;
+            font-weight: bold;
+            color: var(--tuscan-sun);
+            margin-bottom: 4px;
+        }
+
+        .contact-card .contact-sub {
+            font-size: 14px;
+            color: rgba(255,255,255,0.55);
+            font-style: italic;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .contact-card .contact-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-size: 15px;
+            color: rgba(255,255,255,0.85);
+        }
+
+        .contact-card .contact-label {
+            color: var(--tuscan-sun);
+            font-weight: bold;
+            min-width: 58px;
+            font-size: 14px;
+        }
+
+        .contact-card .contact-val {
+            line-height: 1.7;
+        }
+
+        /* =========================================================
+           MOBILE RESPONSIVE
+        ========================================================== */
+
+        @media (max-width: 600px) {
+
+            .main-title {
+                font-size: 30px;
+            }
+
+            .login-card {
+                width: 90%;
+                padding: 30px;
+            }
+
+            .synopsis-heading h1 {
+                font-size: 30px;
+            }
+
+            .synopsis-card {
+                padding: 28px 22px;
+            }
+
+            .synopsis-card p {
+                font-size: 15px;
+            }
+
+            .toc-box h1 {
+                font-size: 28px;
+            }
+
+            .section h2 {
+                font-size: 26px;
+            }
+        }
+        /* =========================================================
+           FLOATING NAVIGATION DOCK
+        ========================================================== */
+
+        .nav-dock {
+            position: fixed;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 600;
+            display: flex;
+            gap: 6px;
+            padding: 9px 12px;
+            background: rgba(6, 8, 20, 0.82);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 40px rgba(0,0,0,0.55), inset 0 0 0 1px rgba(255,255,255,0.04);
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        .nav-dock.dock-visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 9px 16px;
+            border-radius: 30px;
+            font-size: 12.5px;
+            letter-spacing: 0.3px;
+            font-family: Georgia, serif;
+            font-style: normal;
+            text-decoration: none;
+            color: rgba(255,255,255,0.72);
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.1);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+            user-select: none;
+        }
+
+        .nav-btn:hover { color: #fff; transform: translateY(-2px) scale(1.04); }
+
+        .nav-btn.current-page {
+            opacity: 0.35;
+            pointer-events: none;
+            transform: none !important;
+            cursor: default;
+        }
+
+        .nav-btn-home { border-color: rgba(180,200,255,0.22); background: rgba(180,200,255,0.05); }
+        .nav-btn-home:hover {
+            background: rgba(180,200,255,0.16); border-color: rgba(180,200,255,0.8);
+            box-shadow: 0 0 13px rgba(160,190,255,0.72), 0 0 42px rgba(160,190,255,0.28); color: #ddeeff;
+        }
+
+        .nav-btn-reflections { border-color: rgba(210,175,90,0.22); background: rgba(210,175,90,0.05); }
+        .nav-btn-reflections:hover {
+            background: rgba(210,175,90,0.16); border-color: rgba(225,188,95,0.82);
+            box-shadow: 0 0 13px rgba(215,180,85,0.72), 0 0 42px rgba(215,180,85,0.28); color: #f5e8a8;
+        }
+
+        .nav-btn-journeys { border-color: rgba(38,200,165,0.22); background: rgba(38,200,165,0.05); }
+        .nav-btn-journeys:hover {
+            background: rgba(38,200,165,0.16); border-color: rgba(42,210,178,0.82);
+            box-shadow: 0 0 13px rgba(38,205,170,0.72), 0 0 42px rgba(38,205,170,0.28); color: #a0f5e8;
+        }
+
+        .nav-btn-sorrow { border-color: rgba(120,148,235,0.22); background: rgba(120,148,235,0.05); }
+        .nav-btn-sorrow:hover {
+            background: rgba(120,148,235,0.16); border-color: rgba(130,158,245,0.82);
+            box-shadow: 0 0 13px rgba(125,152,240,0.72), 0 0 42px rgba(125,152,240,0.28); color: #c0d0ff;
+        }
+
+        @media (max-width: 560px) {
+            .nav-dock { gap: 4px; padding: 8px 10px; bottom: 18px; }
+            .nav-btn { padding: 9px 13px; font-size: 15px; }
+            .nav-label { display: none; }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================================================
+         LOGIN PAGE
+    ========================================================== -->
+
+    <div id="loginPage">
+
+        <div class="login-card">
+
+            <h1 class="main-title">
+                Colours of My Life
+            </h1>
+
+            <div class="author">
+                by — ABHIJIT KUMAR MISRA
+            </div>
+
+            <div class="hint-wrapper">
+                <input type="password"
+                       id="password"
+                       placeholder="Enter Password">
+                <button class="hint-icon" id="hintBtn" title="Password Hint">?</button>
+                <div class="hint-tooltip" id="hintTooltip">Password is BSNL phone number</div>
+            </div>
+
+            <button onclick="checkPassword()">
+                Enter
+            </button>
+
+            <div id="error"></div>
+
+        </div>
+
+    </div>
+
+    <!-- =========================================================
+         SYNOPSIS PAGE
+    ========================================================== -->
+
+    <div id="synopsisPage">
+
+        <div class="synopsis-wrapper">
+
+            <!-- Ornamental divider -->
+            <div class="synopsis-ornament">
+                <hr>
+                <span>&#10022; &#10022; &#10022;</span>
+                <hr>
+            </div>
+
+            <!-- Heading -->
+            <div class="synopsis-heading">
+                <h2>A Personal Note</h2>
+                <h1>Synopsis</h1>
+            </div>
+
+            <!-- Synopsis text card -->
+            <div class="synopsis-card">
+
+                <p>
+                    I had been jotting down some very personal thoughts in a diary since 2005,
+                    and later copied those writings into Word documents to preserve them forever.
+                    This also helped protect those private expressions from accidental exposure,
+                    even if the physical diary were ever found. While transferring the writings,
+                    I carefully retained the original emotions and expressions, correcting only
+                    grammatical errors where necessary.
+                </p>
+
+                <p>
+                    These writings were originally taken from my 2005 diary and rewritten in
+                    digital form to preserve those deeply personal memories and reflections.
+                    During the process, only minor grammatical corrections and occasional sentence
+                    refinements were made. However, the meanings, emotions, and essence of the
+                    original writings remain completely unchanged.
+                </p>
+
+                <p>
+                    To maintain the authenticity of this book, I have used my personal photograph,
+                    which also adds a sense of clarity and visual appeal to the presentation.
+                </p>
+
+                <p>
+                    Naturally, a few modifications have been made over time to improve the overall
+                    appearance of the book, include new articles, and add personal reflections and
+                    self-analysis beyond the original diary entries. These additions are discussed
+                    in the following section.
+                </p>
+
+                <p>
+                    This entire work was first compiled in MS Word in 2013, and since then,
+                    continuous efforts have been made to refine and enhance it. With the assistance
+                    of modern Artificial Intelligence tools, I was finally able to complete it in
+                    its present form.
+                </p>
+
+                <p>
+                    Thus, you are now reading the final web version.
+                </p>
+
+                <p class="final-line">
+                    In 2026, I finally decided to share my thoughts and emotions with you.
+                    After making a few final corrections and subtle improvements, I proudly
+                    present to you — <strong>The Colours of My Life.</strong>
+                </p>
+
+            </div>
+
+            <!-- Slide-to-Enter -->
+            <div class="slide-section">
+
+                <div class="slide-label">
+                    Slide to Enter
+                </div>
+
+                <div class="slider-track" id="sliderTrack">
+
+                    <!-- Fill bar -->
+                    <div class="slider-fill" id="sliderFill"></div>
+
+                    <!-- Track label -->
+                    <div class="slider-text" id="sliderText">
+                        &#8212;&nbsp; Enter my World &nbsp;&#8212;
+                    </div>
+
+                    <!-- Chevrons -->
+                    <div class="slider-arrows" id="sliderArrows">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+
+                    <!-- Draggable thumb -->
+                    <div class="slider-thumb" id="sliderThumb">
+
+                        <!-- Arrow (default) -->
+                        <svg class="thumb-arrow" viewBox="0 0 24 24">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+
+                        <!-- Checkmark (on success) -->
+                        <svg class="thumb-check" viewBox="0 0 24 24">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- /slide-section -->
+
+        </div>
+        <!-- /synopsis-wrapper -->
+
+    </div>
+    <!-- /synopsisPage -->
+
+    <!-- =========================================================
+         CONTENT PAGE
+    ========================================================== -->
+
+    <div id="contentPage">
+
+        <div class="container">
+
+            <!-- TABLE OF CONTENTS -->
+
+            <div class="toc-box" id="top">
+
+                <h1>Table of Contents</h1>
+
+                <div class="toc-links">
+
+                    <a href="#intro">My Life's True Colours</a>
+
+                    <a href="#chapter1">Our Lives</a>
+
+                    <a href="#chapter2">Chapter 2</a>
+
+                    <a href="#gallery">Gallery</a>
+
+                    <a href="#contact">Contact</a>
+
+                    <a href="#faq">Enter Deeper</a>
+
+                </div>
+
+                <button class="logout-btn"
+                        onclick="logout()">
+                    Logout
+                </button>
+
+            </div>
+
+            <!-- CONTENT SECTIONS -->
+
+            <div class="section" id="intro">
+
+                <h2>My Life's True Colours</h2>
+
+                <p>
+                    Here, you will find some interesting pieces of writing that reflect the true colours of my life.
+                    I shall not be judgmental in offering any analytical justification of my literary work.
+                    My life is simple, and it requires no critical explanation — the same simplicity has been
+                    reflected in these compositions.
+                </p>
+
+                <p style="margin-top:14px;">
+                    You will also find some of my writings that had been scattered across a vast archive of files
+                    and folders for quite some time. I have recollected all those writings and brought them together
+                    here, with my heart and soul.
+                </p>
+
+                <p style="margin-top:14px; font-style:italic; opacity:0.85;">
+                    Thank you, readers.<br>
+                    <strong>Abhijit Kumar Misra</strong>
+                </p>
+
+                <a class="back" href="#top">
+                    Back to Top
+                </a>
+
+            </div>
+
+            <div class="section" id="chapter1">
+
+                <h2>Our Lives</h2>
+
+                <p>"Life" — the word itself carries a profound weight. It is not merely a biological existence but a rich, ever-unfolding experience. If life were a coin, happiness and sorrow would be its two inseparable sides. Human life, in its very essence, is woven from both. Joy and grief are not opposites — they are companions on the same road.</p>
+
+                <p style="margin-top:14px;">Through the course of living, I have witnessed stark disparities. Some people seem condemned to a life of suffering and quiet melancholy, while others are swept up in a whirlwind of pleasure, enveloped in comfort and convenience. There are always those fortunate few who appear to live life to its fullest. Yet how one defines or savours life is deeply personal — an inner matter shaped far more by temperament than by circumstance.</p>
+
+                <p style="margin-top:14px;">In truth, every human soul craves a peaceful and fulfilling life. But happiness, I have come to believe, is above all a state of mind. It resists easy definition. For some, it lies in material abundance; for others, in robust health; and for many, in quiet contentment with what they already possess. There is no universal formula, and perhaps that is its beauty.</p>
+
+                <p style="margin-top:14px;">It is wise, perhaps, to find happiness in what we already hold rather than in endless and exhausting pursuit. Yet society often teaches us otherwise — that a life without ambition, wealth, power, or companionship is somehow incomplete. And while those things carry their own worth, I feel that one essential ingredient is too often overlooked: a true friend, a sincere companion, or a loving soul who sees us as we truly are.</p>
+
+                <p style="margin-top:14px;">Love — yes, love — is that rare and precious flower that blossoms in the garden of the human heart. When it blooms, it releases a fragrance that uplifts not only the individual but the entire world they inhabit. This flower, I believe, is a divine gift. Those who are blessed with it are truly, deeply fortunate.</p>
+
+                <p style="margin-top:14px;">Where there is genuine love, conflict cannot long endure. A loving relationship rests upon pillars of mutual respect, empathy, trust, and sacrifice. A truly harmonious bond is nourished by —</p>
+
+                <ol style="margin-top:12px; margin-left:28px; line-height:2; color:white; font-size:18px;">
+                    <li>Respect for one another's thoughts and individuality,</li>
+                    <li>A willingness to understand and stand beside each other through difficulty,</li>
+                    <li>Honesty and the courage to sacrifice without expectation,</li>
+                    <li>Unwavering trust, even in moments of doubt,</li>
+                    <li>Emotional availability and the grace of empathy,</li>
+                    <li>Patience and tolerance in the face of imperfection,</li>
+                    <li>A shared vision and the desire to grow together,</li>
+                    <li>The wisdom to offer each other freedom and space,</li>
+                    <li>The tenderness to celebrate even the smallest of moments,</li>
+                    <li>And the nobility of mutual forgiveness.</li>
+                </ol>
+
+                <p style="margin-top:14px;">In the realm of true friendship, there is no room for cold formalities such as "thank you" or "sorry." Instead, forgiveness and sacrifice take centre stage — quietly, without ceremony. A real friend does not ridicule your weaknesses or wound you with laughter. One must be gentle with others' emotions, careful never to injure another's dignity. Life is fragile and unpredictable — far too short and precious to be squandered in mockery or regret.</p>
+
+                <p style="margin-top:14px;">Never hurt your parents, your friends, or those who love you — for they are the anchors in a world that is perpetually shifting. As time moves forward, we are each called to grow — not by discarding our bonds, but by cherishing the very people who shaped us. To love truly is to evolve gracefully, to adapt with maturity while remembering who stood beside us in our weakest hours. Relevance does not lie in imitation or the chasing of trends, but in becoming someone who honours both memory and change. In this quiet harmony between love and growth lies the true meaning of an ideal life.</p>
+
+                <p style="margin-top:14px;">From my own experiences, I have drawn many lessons. Some say that love, marriage, friendship, and even fortune all depend upon luck. I would argue otherwise: luck is not merely received — it is cultivated by effort and shaped by intention. We cannot dismiss fortune entirely, nor surrender to it blindly. Between these two extremes lies a deeper truth: it is your sustained effort that tips the scales toward the life you deserve.</p>
+
+                <p style="margin-top:14px;">The meaning of life is different for every soul who lives it. For me, its truest richness lies in love and goodness. Whenever someone speaks of love, we instinctively draw closer — curious, attentive — as though drawn by a silent and irresistible force. Why? Because, if we are honest with ourselves, we know very little about life, and even less about love. Definitions evolve. Perceptions shift. And yet, the longing remains constant.</p>
+
+                <p style="margin-top:14px;">Happiness, too, is intimately bound to our mental and emotional state. Good health — both of body and mind — is the soil in which joy takes root and flourishes. Someone once remarked that happiness is found in health and wealth. But I believe it is found, above all, within. It is not something to be chased across mountains or distant cities — it is something we recognise quietly, in a still and grateful moment, within ourselves. A contented mind finds beauty in all things; a restless one finds it in none.</p>
+
+                <p style="margin-top:14px; font-style:italic; opacity:0.9;">And if a problem seems utterly beyond resolution — then perhaps, for a while, we must simply allow it to rest.</p>
+
+                <hr style="border:none;border-top:1px solid rgba(255,255,255,0.2);margin:28px 0;">
+
+                <p style="font-style:italic; opacity:0.9;">And so, dear reader, I leave you with these words:<br>
+                Take care of your health. Nourish your mind. Stay kind. Keep smiling.<br>
+                For life, after all, is not measured by the number of breaths we take — but by the moments that render us, briefly and beautifully, breathless.</p>
+
+                <hr style="border:none;border-top:1px solid rgba(255,255,255,0.2);margin:28px 0;">
+
+                <p style="margin-top:14px; font-size:20px; font-style:italic; color:var(--tuscan-sun);">Love</p>
+
+                <p style="margin-top:12px;">Every stupid thing we do which does not require our brain is love. Chocolate, ice creams, cards, teddies, perfumes, and what not — all of these are love. Waiting at the bus stop with a bouquet of red roses and making a fool of yourself is love. Writing her name a million times on the back of your notebook is love. Wearing her favourite colour no matter if it suits you or not, is love. Spending all your pocket money on buying gifts for her and then borrowing money from your friends is love. Skipping classes to go on a date, and later begging classmates for notes, is love. Every stupid thing we do which does not require our brain is love.</p>
+
+                <p style="margin-top:14px;">Many of my friends are in love. And yes, all these so-called stupid things — they do them too. For them, love is still everything. Because for them, love is life.</p>
+
+                <p style="margin-top:14px;">Not everyone is lucky enough to be blessed with this strange, beautiful gift from the universe. And honestly, those who've never fallen in love are missing out on one of life's greatest miracles. So, pals — go ahead, fall in love. Do the crazy things. Scribble names, skip classes, wait at the bus stop for hours. Trust me, it feels like being on top of the world.</p>
+
+                <p style="margin-top:14px;">Love is a term that covers more ground than we often realise. It can be platonic or romantic. For some, it's a short fling. For others, it leads to marriage. One way or another, we're all searching for love — whether it's from our parents, our siblings, our friends, or even our co-workers. No one can truly say they're happy being all alone. Some might claim it out of ego, but deep down, we all need to be loved.</p>
+
+                <p style="margin-top:14px;">In fact, if you look closely, you'll find that the absence of love is often the root cause of most of the chaos in this world. Behind every hardened criminal's story, there's often a childhood that lacked love. No warmth. No affection. Just emptiness. Some of the biggest wars in history? Believe it or not, they were fought in the name of love — or the loss of it.</p>
+
+                <p style="margin-top:14px;">Love doesn't always come with fireworks and background music. Sometimes it's just in a simple gesture — someone waiting for you, someone listening without judging, someone who remembers how you take your tea. When those small moments are missing, we begin to feel lost. And even the most practical, most "sorted" people crave a warm hug or a kind word at the end of the day. We all do. It's human.</p>
+
+                <p style="margin-top:14px;">That said, whenever we talk about love, the first thing that usually comes to mind is romantic love — the kind between two lovers.</p>
+
+                <p style="margin-top:14px;">Every year, on 14th February, people around the world celebrate Valentine's Day. It doesn't matter if you're rich or poor, a teenager or retired — love finds its own language. Young couples especially are excited to mark the day with chocolates, roses, and Instagram stories. And behind all this joy is the legend of St. Valentine, the man who stood for love, even in the face of death.</p>
+
+                <p style="margin-top:14px;">In today's fast-moving, materialistic world, I genuinely hope that Valentine's Day becomes more than just heart-shaped balloons and cheesy one-liners. Let it remind us to love not just our partners, but also our parents, our siblings, our friends, our neighbours. Because if love really can make the world a better place — and I believe it can — we should spread it as much as we can.</p>
+
+                <p style="margin-top:14px;">I'm a hopeless romantic at heart, and for me, Valentine's Day stirs up a flood of nostalgic memories. On that day, life always felt different — carefree and light, like the world had paused to make space for hearts to speak. Dressing up felt like a ritual. Wondering who might surprise us, checking if our accessories matched... gosh, those tiny things used to matter so much. Cards felt priceless, and the words inside them — treasured even more.</p>
+
+                <p style="margin-top:14px;">Valentine's Day has always been a day of joy. After all, love — the very word — is one of the most powerful forces in the world. It has the strength to pull us out of darkness and into light, from despair to delight. It's a wellspring of inspiration, a silent catalyst of success. I believe that a person who truly knows how to love cannot be a criminal. A lover, in any sense, is always a winner. Love is that beautiful dream which — when nurtured — can effortlessly become reality. It doesn't fade; it grows. It creates; it never destroys. In many ways, love is God.</p>
+
+                <p style="margin-top:14px;">Love knows no boundaries — not of history, geography, science, or logic. It is universal. It is life. And I believe we shouldn't live even a single moment in this beautiful universe without tasting this elixir.</p>
+
+                <p style="margin-top:14px;">There are countless ways to define love. For some, it's an inspiration. For others, it's a quiet truth. Love is subjective; what one person believes is love may not hold the same meaning for someone else. Yet somewhere, amidst the diversity of feelings, there must be a middle ground — a common heartbeat that we all recognise. Because ultimately, love is a word with too many meanings and one deep emotion.</p>
+
+                <p style="margin-top:14px;">Valentine's Day, in its own way, adds to the confusion. For a day that claims to celebrate love, it often narrows the idea down to just romantic gestures — roses, chocolates, candlelight dinners. But love is much more layered than that. It's not just about couples or fleeting affections. The true essence of love often gets lost in the glitter of gifts and Instagram captions. And that's where the confusion lies — between what love means and how we celebrate it. The dictionary defines love as "a strong affection or deep tender feeling for someone." But it's far more than that. Love is being happy when someone else is happy. It's feeling their sorrow as if it were your own. It's standing together through storms and sunshine. Love, in that sense, becomes a source of strength.</p>
+
+                <p style="margin-top:14px;">Love is also honesty — being true to yourself and to the other person. It's about telling the truth, listening without judgement, respecting the silence, and never pretending. Love binds us to reality, not illusion.</p>
+
+                <p style="margin-top:14px;">It is understanding so deep that you feel like part of the other person — accepting them as they are, not trying to remake them. It's the freedom to chase your dreams while sharing the journey with another. Love is the parallel growth of two individuals — side by side, yet bound at the soul.</p>
+
+                <p style="margin-top:14px;">It is the thrill of planning together, the excitement of doing things together. Love is the storm's fury and the rainbow's calm. It fuels passion.</p>
+
+                <p style="margin-top:14px;">It's about giving and taking in the rhythm of daily life — being patient with one another's needs and desires. Love is sharing, even in silence. It's looking out for the other's happiness, knowing that they'll always have your best interest at heart. Love is missing someone when they're gone, but feeling them close, always. That's not just emotion — it's security.</p>
+
+                <p style="margin-top:14px;">Sometimes I wonder: the ache in my heart — is that love? The restless search in my eyes — is that love? The words I never spoke, the promises I never kept — are they all traces of love? These are the thoughts that flood my mind when I reflect on my emotions.</p>
+
+                <p style="margin-top:14px;">To define love is nearly impossible. It beats quietly in every human heart. And truthfully, I don't claim to know love — perhaps because I've never fully been in love. But maybe that's where I go wrong. Because love isn't only the romance between a man and a woman. Love is also a mother's lullaby, a father's protective silence, a baby's innocent smile, the playful bickering of siblings, the chirping of birds at dawn, the quiet prayer to God before sleep.</p>
+
+                <p style="margin-top:14px;">They say when you're truly in love, you overlook a person's flaws. But isn't that the beauty of it? To embrace someone, imperfections and all? There's a rare peace in knowing someone isn't perfect — and still, you love them.</p>
+
+                <p style="margin-top:14px;">Maybe I've become too philosophical. But these are the thoughts that surface when I reflect on this abstract necessity of life. Love is the fertile ground from which we grow — emotionally, spiritually, completely. It's the feeling that gives meaning to our days and direction to our hearts.</p>
+
+                <p style="margin-top:14px;">Valentine's Day, though a symbolic celebration of love, often leaves me wondering — should love be confined to a single day? Isn't its magic meant for every moment, not just one date on the calendar? To me, every day should be a Valentine's Day, because love isn't seasonal — it's eternal. Every moment lived in love is a moment truly lived.</p>
+
+                <p style="margin-top:14px; font-style:italic; opacity:0.9;">So, let love be the air you breathe. Let it be shared, spread, felt. It brings eternal peace, immense joy, and a strange sense of wholeness. Love, in all its forms, is the greatest gift of God — unseen, but unforgettable.</p>
+
+                <a class="back" href="#top">
+                    Back to Top
+                </a>
+
+            </div>
+
+            <div class="section" id="chapter2">
+
+                <h2>Chapter 2</h2>
+
+                <p>
+                    Each section acts like a separate page while
+                    still remaining within one single HTML file.
+                </p>
+
+                <a class="back" href="#top">
+                    Back to Top
+                </a>
+
+            </div>
+
+            <div class="section" id="gallery">
+
+                <h2>Gallery</h2>
+
+                <p style="opacity:0.75; font-style:italic; font-size:16px;">A collection of cherished moments — photographs to be added soon.</p>
+
+                <div class="gallery-grid">
+                    <div class="gallery-frame"><div class="placeholder-icon">🖼</div><span>Photo 1</span><span class="frame-num">01</span></div>
+                    <div class="gallery-frame"><div class="placeholder-icon">🖼</div><span>Photo 2</span><span class="frame-num">02</span></div>
+                    <div class="gallery-frame"><div class="placeholder-icon">🖼</div><span>Photo 3</span><span class="frame-num">03</span></div>
+                    <div class="gallery-frame"><div class="placeholder-icon">🖼</div><span>Photo 4</span><span class="frame-num">04</span></div>
+                    <div class="gallery-frame"><div class="placeholder-icon">🖼</div><span>Photo 5</span><span class="frame-num">05</span></div>
+                    <div class="gallery-frame"><div class="placeholder-icon">🖼</div><span>Photo 6</span><span class="frame-num">06</span></div>
+                    <div class="gallery-frame"><div class="placeholder-icon">🖼</div><span>Photo 7</span><span class="frame-num">07</span></div>
+                    <div class="gallery-frame"><div class="placeholder-icon">🖼</div><span>Photo 8</span><span class="frame-num">08</span></div>
+                    <div class="gallery-frame"><div class="placeholder-icon">🖼</div><span>Photo 9</span><span class="frame-num">09</span></div>
+                    <div class="gallery-frame"><div class="placeholder-icon">🖼</div><span>Photo 10</span><span class="frame-num">10</span></div>
+                    <div class="gallery-frame"><div class="placeholder-icon">🖼</div><span>Photo 11</span><span class="frame-num">11</span></div>
+                    <div class="gallery-frame"><div class="placeholder-icon">🖼</div><span>Photo 12</span><span class="frame-num">12</span></div>
+                    <div class="gallery-frame"><div class="placeholder-icon">🖼</div><span>Photo 13</span><span class="frame-num">13</span></div>
+                    <div class="gallery-frame"><div class="placeholder-icon">🖼</div><span>Photo 14</span><span class="frame-num">14</span></div>
+                    <div class="gallery-frame"><div class="placeholder-icon">🖼</div><span>Photo 15</span><span class="frame-num">15</span></div>
+                    <div class="gallery-frame"><div class="placeholder-icon">🖼</div><span>Photo 16</span><span class="frame-num">16</span></div>
+                    <div class="gallery-frame"><div class="placeholder-icon">🖼</div><span>Photo 17</span><span class="frame-num">17</span></div>
+                    <div class="gallery-frame"><div class="placeholder-icon">🖼</div><span>Photo 18</span><span class="frame-num">18</span></div>
+                    <div class="gallery-frame"><div class="placeholder-icon">🖼</div><span>Photo 19</span><span class="frame-num">19</span></div>
+                    <div class="gallery-frame"><div class="placeholder-icon">🖼</div><span>Photo 20</span><span class="frame-num">20</span></div>
+                </div>
+
+                <a class="back" href="#top">
+                    Back to Top
+                </a>
+
+            </div>
+
+            <div class="section" id="contact">
+
+                <h2>Contact</h2>
+
+                <p>Feel free to reach out — I'd love to hear from you.</p>
+
+                <div class="contact-card">
+                    <div class="contact-name">ABHIJIT KUMAR MISRA (JITU)</div>
+                    <div class="contact-sub">Jitu's Creative Works</div>
+                    <div class="contact-row">
+                        <span class="contact-label">✉ Email</span>
+                        <span class="contact-val">
+                            abhijit.jitu4u@rediffmail.com<br>
+                            abhijit.jitu4u@gmail.com
+                        </span>
+                    </div>
+                    <div class="contact-row">
+                        <span class="contact-label">📞 Phone</span>
+                        <span class="contact-val">(+91) 9401071282</span>
+                    </div>
+                </div>
+
+                <a class="back" href="#top">
+                    Back to Top
+                </a>
+
+            </div>
+
+            <div class="section" id="faq">
+
+                <h2>Enter Deeper</h2>
+
+                <p style="opacity:0.8; font-style:italic; margin-bottom:8px;">
+                    There is more to explore beyond this page. Choose a door and step inside.
+                </p>
+
+                <div class="enter-deeper-grid">
+
+                    <a class="deeper-card" href="Part_1.html" target="_blank" rel="noopener noreferrer">
+                        <span class="card-icon">📖</span>
+                        <span class="card-title">My Reflections</span>
+                        <span class="card-desc">Essays, meditations, and compositions on life, liberty, and the pursuit of meaning.</span>
+                    </a>
+
+                    <a class="deeper-card" href="Part_2.html" target="_blank" rel="noopener noreferrer">
+                        <span class="card-icon">🛣</span>
+                        <span class="card-title">My Journeys</span>
+                        <span class="card-desc">Chronicles of the road and river — travel stories and adventures from a life on the move.</span>
+                    </a>
+
+                    <div class="deeper-card sorrow-card" onclick="openMituModal()">
+                        <span class="card-icon">🕊</span>
+                        <span class="card-title">My Biggest Sorrow</span>
+                        <span class="card-desc">A deeply personal space. Access is restricted — enter only if you carry the key.</span>
+                    </div>
+
+                </div>
+
+                <a class="back" href="#top">
+                    Back to Top
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- =========================================================
+         FLOATING NAVIGATION DOCK
+    ========================================================== -->
+
+    <nav class="nav-dock" id="mainNavDock" aria-label="Site navigation">
+        <span class="nav-btn nav-btn-home current-page">🏠 <span class="nav-label">Home</span></span>
+        <a href="Part_1.html" target="_blank" rel="noopener noreferrer" class="nav-btn nav-btn-reflections">📖 <span class="nav-label">My Reflections</span></a>
+        <a href="Part_2.html" target="_blank" rel="noopener noreferrer" class="nav-btn nav-btn-journeys">🛣 <span class="nav-label">My Journeys</span></a>
+        <a href="#" class="nav-btn nav-btn-sorrow" onclick="event.preventDefault(); openMituModal();">🕊 <span class="nav-label">My Sorrow</span></a>
+    </nav>
+
+    <!-- =========================================================
+         MITU PASSWORD MODAL
+    ========================================================== -->
+
+    <div id="mituOverlay">
+        <div class="mitu-modal">
+            <h3>🕊 Restricted Access</h3>
+            <p>This space holds something very personal.<br>Please enter the password to proceed.</p>
+            <input type="password" id="mituPassword" placeholder="Enter password" autocomplete="off">
+            <div id="mituError"></div>
+            <button onclick="checkMituPassword()">Enter</button>
+            <button class="modal-cancel" onclick="closeMituModal()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================== -->
+
+    <script>
+
+        /* ── PASSWORD HINT ICON ── */
+
+        const hintBtn     = document.getElementById("hintBtn");
+        const hintTooltip = document.getElementById("hintTooltip");
+
+        hintBtn.addEventListener("click", function (e) {
+            e.stopPropagation();
+            const visible = hintTooltip.classList.toggle("visible");
+            hintBtn.classList.toggle("active", visible);
+        });
+
+        document.addEventListener("click", function () {
+            hintTooltip.classList.remove("visible");
+            hintBtn.classList.remove("active");
+        });
+
+        /* ── MITU MODAL ── */
+
+        const mituCorrectPassword = "Mitu";
+
+        function openMituModal() {
+            document.getElementById("mituOverlay").classList.add("show");
+            document.getElementById("mituPassword").focus();
+        }
+
+        function closeMituModal() {
+            document.getElementById("mituOverlay").classList.remove("show");
+            document.getElementById("mituPassword").value = "";
+            document.getElementById("mituError").innerHTML = "";
+        }
+
+        function checkMituPassword() {
+            const entered = document.getElementById("mituPassword").value;
+            if (entered === mituCorrectPassword) {
+                closeMituModal();
+                const sorrowWindow = window.open("Part_3.html", "_blank", "noopener");
+                if (sorrowWindow) {
+                    sorrowWindow.opener = null;
+                }
+            } else {
+                document.getElementById("mituError").innerHTML = "Incorrect password. Please try again.";
+                document.getElementById("mituPassword").value = "";
+                document.getElementById("mituPassword").focus();
+            }
+        }
+
+        document.getElementById("mituPassword").addEventListener("keydown", function (e) {
+            if (e.key === "Enter") checkMituPassword();
+        });
+
+        /* ── PASSWORD ── */
+
+        const correctPassword = "9401071282";   // Change password here
+
+        function checkPassword() {
+
+            const passwordInput = document.getElementById("password");
+            const error = document.getElementById("error");
+            const entered = passwordInput.value;
+
+            error.innerHTML = "";
+
+            if (entered === correctPassword) {
+
+                document.getElementById("loginPage").style.display  = "none";
+                document.getElementById("synopsisPage").style.display = "block";
+
+                // Scroll to top of synopsis
+                window.scrollTo({ top: 0 });
+
+            } else {
+
+                error.innerHTML = "Wrong Password!";
+                passwordInput.focus();
+                passwordInput.select();
+            }
+        }
+
+        function logout() {
+
+            document.getElementById("contentPage").style.display  = "none";
+            document.getElementById("synopsisPage").style.display = "none";
+            document.getElementById("loginPage").style.display    = "flex";
+
+            document.getElementById("password").value   = "";
+            document.getElementById("error").innerHTML  = "";
+
+            // Hide navigation dock
+            document.getElementById("mainNavDock").classList.remove("dock-visible");
+
+            // Reset slider
+            resetSlider();
+
+            document.getElementById("password").focus();
+        }
+
+        // Enter key on login
+        document.getElementById("password").addEventListener("keydown", function (e) {
+            if (e.key === "Enter") checkPassword();
+        });
+
+        /* ── SLIDE-TO-ENTER ── */
+
+        const track  = document.getElementById("sliderTrack");
+        const thumb  = document.getElementById("sliderThumb");
+        const fill   = document.getElementById("sliderFill");
+        const label  = document.getElementById("sliderText");
+        const arrows = document.getElementById("sliderArrows");
+
+        let isDragging  = false;
+        let startX      = 0;
+        let currentX    = 0;
+        let thumbLeft   = 0;        // current left px of thumb
+        const THUMB_W   = 52;       // thumb diameter px
+        const PADDING   = 5;        // thumb top/bottom padding
+        let triggered   = false;
+
+        function getTrackWidth() {
+            return track.offsetWidth;
+        }
+
+        function getMaxLeft() {
+            return getTrackWidth() - THUMB_W - PADDING * 2;
+        }
+
+        // ── Mouse events ──
+
+        thumb.addEventListener("mousedown", function (e) {
+            if (triggered) return;
+            isDragging = true;
+            startX = e.clientX - thumbLeft;
+            thumb.style.transition  = "none";
+            fill.style.transition   = "none";
+            e.preventDefault();
+        });
+
+        document.addEventListener("mousemove", function (e) {
+            if (!isDragging) return;
+            currentX = e.clientX - startX;
+            moveThumb(currentX);
+        });
+
+        document.addEventListener("mouseup", function () {
+            if (!isDragging) return;
+            isDragging = false;
+            if (!triggered) snapBack();
+        });
+
+        // ── Touch events ──
+
+        thumb.addEventListener("touchstart", function (e) {
+            if (triggered) return;
+            isDragging = true;
+            startX = e.touches[0].clientX - thumbLeft;
+            thumb.style.transition = "none";
+            fill.style.transition  = "none";
+        }, { passive: true });
+
+        document.addEventListener("touchmove", function (e) {
+            if (!isDragging) return;
+            currentX = e.touches[0].clientX - startX;
+            moveThumb(currentX);
+        }, { passive: true });
+
+        document.addEventListener("touchend", function () {
+            if (!isDragging) return;
+            isDragging = false;
+            if (!triggered) snapBack();
+        });
+
+        // ── Core move logic ──
+
+        function moveThumb(newLeft) {
+
+            const max = getMaxLeft();
+
+            // Clamp between 0 and max
+            newLeft = Math.max(0, Math.min(newLeft, max));
+            thumbLeft = newLeft;
+
+            thumb.style.left = (PADDING + newLeft) + "px";
+
+            // Fill percentage
+            const pct = (newLeft / max) * 100;
+            fill.style.width = pct + "%";
+
+            // Fade out label as thumb moves right
+            label.style.opacity  = Math.max(0, 1 - pct / 40);
+            arrows.style.opacity = Math.max(0, 1 - pct / 40);
+
+            // Trigger at 95%
+            if (pct >= 95) {
+                triggered = true;
+                isDragging = false;
+                completeSlide();
+            }
+        }
+
+        function snapBack() {
+
+            thumb.style.transition = "left 0.35s cubic-bezier(0.4,0,0.2,1)";
+            fill.style.transition  = "width 0.35s cubic-bezier(0.4,0,0.2,1)";
+
+            thumbLeft = 0;
+            thumb.style.left   = PADDING + "px";
+            fill.style.width   = "0%";
+
+            label.style.opacity  = "1";
+            arrows.style.opacity = "1";
+        }
+
+        function completeSlide() {
+
+            // Animate thumb to far right
+            thumb.style.transition = "left 0.25s ease";
+            fill.style.transition  = "width 0.25s ease";
+            thumb.style.left = (PADDING + getMaxLeft()) + "px";
+
+            // Add success styling
+            track.classList.add("success");
+
+            // After brief pause, switch page
+            setTimeout(function () {
+
+                document.getElementById("synopsisPage").style.display = "none";
+                document.getElementById("contentPage").style.display  = "block";
+                window.scrollTo({ top: 0 });
+
+                // Show navigation dock
+                document.getElementById("mainNavDock").classList.add("dock-visible");
+
+            }, 600);
+        }
+
+        function resetSlider() {
+
+            triggered    = false;
+            thumbLeft    = 0;
+            isDragging   = false;
+
+            track.classList.remove("success");
+            thumb.style.transition = "none";
+            fill.style.transition  = "none";
+            thumb.style.left       = PADDING + "px";
+            fill.style.width       = "0%";
+            label.style.opacity    = "1";
+            arrows.style.opacity   = "1";
+        }
+
+    </script>
+
+</body>
+
+</html>
