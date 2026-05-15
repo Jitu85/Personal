@@ -107,7 +107,7 @@
             font-family: Georgia, serif;
         }
 
-        .login-card button {
+        .login-card .login-btn {
 
             width: 100%;
             padding: 15px;
@@ -121,7 +121,7 @@
             font-family: Georgia, serif;
         }
 
-        .login-card button:hover {
+        .login-card .login-btn:hover {
 
             background: var(--copperwood);
             transform: translateY(-2px);
@@ -597,7 +597,7 @@
             width: 26px;
             height: 26px;
             border-radius: 50%;
-            background: rgba(188,108,37,0.75);
+            background: rgba(188,108,37,0.85);
             color: white;
             font-size: 14px;
             font-weight: bold;
@@ -607,13 +607,16 @@
             align-items: center;
             justify-content: center;
             border: none;
-            transition: background 0.2s;
+            padding: 0;
+            transition: background 0.2s, transform 0.2s;
             flex-shrink: 0;
             user-select: none;
+            z-index: 5;
         }
 
         .hint-icon:hover {
             background: var(--copperwood);
+            transform: scale(1.1);
         }
 
         .hint-tooltip {
@@ -1079,7 +1082,7 @@
                 <div class="hint-tooltip" id="hintTooltip">Password is BSNL phone number</div>
             </div>
 
-            <button onclick="checkPassword()">
+            <button class="login-btn" onclick="checkPassword()">
                 Enter
             </button>
 
@@ -1229,15 +1232,15 @@
 
                     <a href="#intro">My Life's True Colours</a>
 
-                    <a href="#chapter1">Our Lives</a>
+                    <a href="#ourlives">Our Lives</a>
 
-                    <a href="#chapter2">Chapter 2</a>
+                    <a href="#love">Love</a>
 
                     <a href="#gallery">Gallery</a>
 
                     <a href="#contact">Contact</a>
 
-                    <a href="#faq">Enter Deeper</a>
+                    <a href="#deeper">Enter Deeper</a>
 
                 </div>
 
@@ -1278,7 +1281,7 @@
 
             </div>
 
-            <div class="section" id="chapter1">
+            <div class="section" id="ourlives">
 
                 <h2>Our Lives</h2>
 
@@ -1327,7 +1330,15 @@
 
                 <hr style="border:none;border-top:1px solid rgba(255,255,255,0.2);margin:28px 0;">
 
-                <p style="margin-top:14px; font-size:20px; font-style:italic; color:var(--tuscan-sun);">Love</p>
+                <a class="back" href="#top">
+                    Back to Top
+                </a>
+
+            </div>
+
+            <div class="section" id="love">
+
+                <h2>Love</h2>
 
                 <p style="margin-top:12px;">Every stupid thing we do which does not require our brain is love. Chocolate, ice creams, cards, teddies, perfumes, and what not — all of these are love. Waiting at the bus stop with a bouquet of red roses and making a fool of yourself is love. Writing her name a million times on the back of your notebook is love. Wearing her favourite colour no matter if it suits you or not, is love. Spending all your pocket money on buying gifts for her and then borrowing money from your friends is love. Skipping classes to go on a date, and later begging classmates for notes, is love. Every stupid thing we do which does not require our brain is love.</p>
 
@@ -1376,21 +1387,6 @@
                 <p style="margin-top:14px;">Valentine's Day, though a symbolic celebration of love, often leaves me wondering — should love be confined to a single day? Isn't its magic meant for every moment, not just one date on the calendar? To me, every day should be a Valentine's Day, because love isn't seasonal — it's eternal. Every moment lived in love is a moment truly lived.</p>
 
                 <p style="margin-top:14px; font-style:italic; opacity:0.9;">So, let love be the air you breathe. Let it be shared, spread, felt. It brings eternal peace, immense joy, and a strange sense of wholeness. Love, in all its forms, is the greatest gift of God — unseen, but unforgettable.</p>
-
-                <a class="back" href="#top">
-                    Back to Top
-                </a>
-
-            </div>
-
-            <div class="section" id="chapter2">
-
-                <h2>Chapter 2</h2>
-
-                <p>
-                    Each section acts like a separate page while
-                    still remaining within one single HTML file.
-                </p>
 
                 <a class="back" href="#top">
                     Back to Top
@@ -1461,7 +1457,7 @@
 
             </div>
 
-            <div class="section" id="faq">
+            <div class="section" id="deeper">
 
                 <h2>Enter Deeper</h2>
 
