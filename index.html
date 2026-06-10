@@ -14,6 +14,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
     <title>Colours of My Life</title>
 
     <style>
@@ -468,6 +471,7 @@
 
         #contentPage {
 
+            font-family: 'Lora', Georgia, serif;
             display: none;
             min-height: 100vh;
 
@@ -487,44 +491,163 @@
             margin: auto;
         }
 
-        .toc-box {
-
-            background: rgba(255, 255, 255, 0.12);
-            padding: 30px;
-            border-radius: 20px;
-            margin-bottom: 40px;
-            backdrop-filter: blur(10px);
+        /* =========================================================
+           STICKY Navigation HEADER
+        ========================================================== */
+        .content-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+            background: rgba(38, 70, 83, 0.85); /* semi-transparent charcoal-blue */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 15px 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
         }
 
-        .toc-box h1 {
-
-            color: white;
-            margin-bottom: 20px;
-            font-size: 38px;
+        .header-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
         }
 
-        .toc-links {
+        .header-brand {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--cornsilk);
+            letter-spacing: 1px;
+        }
 
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        .header-nav {
+            display: flex;
+            align-items: center;
             gap: 20px;
         }
 
-        .toc-links a {
-
+        .header-link {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 13.5px;
+            color: rgba(254, 250, 224, 0.8);
             text-decoration: none;
-            background: white;
+            transition: all 0.2s ease;
+            padding: 6px 12px;
+            border-radius: 8px;
+        }
+
+        .header-link:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .header-logout-btn {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 13px;
+            background: var(--burnt-peach);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .header-logout-btn:hover {
+            background: #d85c3e;
+            transform: translateY(-1px);
+        }
+
+        .header-close-btn {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 13px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 7px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .header-close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-1px);
+        }
+
+        .toc-box {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 40px;
+            border-radius: 24px;
+            margin-bottom: 40px;
+            margin-top: 20px;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .toc-box h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 6px;
+            font-size: 32px;
+            letter-spacing: -0.5px;
+        }
+
+        .toc-subtitle {
+            font-family: 'Lora', Georgia, serif;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 15px;
+            margin-bottom: 30px;
+        }
+
+        .toc-links {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            max-width: 440px;
+            margin: 0 auto;
+        }
+
+        .toc-links a {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 14.5px;
+            text-decoration: none;
             color: var(--charcoal-blue);
-            padding: 18px;
-            border-radius: 14px;
-            font-weight: bold;
-            transition: 0.3s;
+            background: white;
+            padding: 14px 28px;
+            border-radius: 12px;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            box-sizing: border-box;
         }
 
         .toc-links a:hover {
-
             background: var(--tuscan-sun);
-            transform: translateY(-3px);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+        }
+
+        .toc-num {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: var(--charcoal-blue);
+            opacity: 0.7;
+            margin-right: 6px;
         }
 
         /* =========================================================
@@ -532,7 +655,6 @@
         ========================================================== */
 
         .section {
-
             background: rgba(255, 255, 255, 0.15);
             padding: 35px;
             border-radius: 20px;
@@ -541,43 +663,27 @@
         }
 
         .section h2 {
-
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
             color: white;
             margin-bottom: 15px;
             font-size: 32px;
         }
 
         .section p {
-
+            font-family: 'Lora', Georgia, serif;
             color: white;
             line-height: 1.8;
             font-size: 18px;
         }
 
         .back {
-
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
             display: inline-block;
             margin-top: 20px;
             text-decoration: none;
             color: var(--tuscan-sun);
-            font-weight: bold;
-        }
-
-        .logout-btn {
-
-            margin-top: 20px;
-            background: var(--burnt-peach);
-            color: white;
-            border: none;
-            padding: 14px 25px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .logout-btn:hover {
-
-            background: #d85c3e;
         }
 
         /* =========================================================
@@ -661,77 +767,6 @@
             display: block;
         }
 
-        /* =========================================================
-           GALLERY GRID
-        ========================================================== */
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 18px;
-            margin-top: 20px;
-        }
-
-        @media (max-width: 900px) {
-            .gallery-grid { grid-template-columns: repeat(3, 1fr); }
-        }
-
-        @media (max-width: 600px) {
-            .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-        }
-
-        .gallery-frame {
-            aspect-ratio: 1 / 1;
-            border: 4px solid rgba(233,196,106,0.7);
-            border-radius: 6px;
-            box-shadow:
-                0 0 0 1px rgba(255,255,255,0.1),
-                inset 0 0 0 2px rgba(233,196,106,0.25),
-                0 6px 20px rgba(0,0,0,0.35);
-            background: rgba(255,255,255,0.08);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: rgba(255,255,255,0.35);
-            font-size: 13px;
-            font-style: italic;
-            letter-spacing: 0.5px;
-            overflow: hidden;
-            position: relative;
-            transition: transform 0.25s, box-shadow 0.25s;
-        }
-
-        .gallery-frame:hover {
-            transform: translateY(-4px) scale(1.03);
-            box-shadow:
-                0 0 0 1px rgba(255,255,255,0.18),
-                inset 0 0 0 2px rgba(233,196,106,0.45),
-                0 14px 32px rgba(0,0,0,0.45);
-        }
-
-        .gallery-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .gallery-frame .frame-num {
-            position: absolute;
-            bottom: 6px;
-            right: 9px;
-            font-size: 11px;
-            color: rgba(233,196,106,0.55);
-            font-style: normal;
-            letter-spacing: 1px;
-        }
-
-        .gallery-frame .placeholder-icon {
-            font-size: 28px;
-            margin-bottom: 6px;
-            opacity: 0.4;
-        }
 
         /* =========================================================
            ENTER DEEPER SECTION
@@ -776,12 +811,14 @@
         }
 
         .deeper-card .card-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
             font-size: 17px;
-            font-weight: bold;
             letter-spacing: 0.5px;
         }
 
         .deeper-card .card-desc {
+            font-family: 'Lora', Georgia, serif;
             font-size: 13px;
             opacity: 0.7;
             line-height: 1.6;
@@ -924,13 +961,14 @@
             gap: 15px;
         }
 
-        .portfolio-btn {
+         .portfolio-btn {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
             background: var(--tuscan-sun);
             color: var(--black-forest);
             text-decoration: none;
             padding: 14px 28px;
             border-radius: 10px;
-            font-weight: bold;
             transition: 0.3s;
             text-align: center;
             width: 100%;
@@ -944,6 +982,7 @@
         }
 
         .contact-card .contact-name {
+            font-family: 'Montserrat', sans-serif;
             font-size: 21px;
             font-weight: bold;
             color: var(--tuscan-sun);
@@ -951,6 +990,7 @@
         }
 
         .contact-card .contact-sub {
+            font-family: 'Lora', Georgia, serif;
             font-size: 14px;
             color: rgba(255,255,255,0.55);
             font-style: italic;
@@ -959,6 +999,7 @@
         }
 
         .contact-card .contact-row {
+            font-family: 'Lora', Georgia, serif;
             display: flex;
             align-items: flex-start;
             gap: 10px;
@@ -968,13 +1009,15 @@
         }
 
         .contact-card .contact-label {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
             color: var(--tuscan-sun);
-            font-weight: bold;
             min-width: 58px;
             font-size: 14px;
         }
 
         .contact-card .contact-val {
+            font-family: 'Lora', Georgia, serif;
             line-height: 1.7;
         }
 
@@ -1051,7 +1094,8 @@
             border-radius: 30px;
             font-size: 12.5px;
             letter-spacing: 0.3px;
-            font-family: Georgia, serif;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
             font-style: normal;
             text-decoration: none;
             color: rgba(255,255,255,0.72);
@@ -1268,6 +1312,19 @@
 
     <div id="contentPage">
 
+        <!-- STICKY Navigation HEADER -->
+        <header class="content-header">
+            <div class="header-container">
+                <span class="header-brand">Colours of My Life</span>
+                <nav class="header-nav">
+                    <a href="#deeper" class="header-link">Enter Deeper</a>
+                    <a href="#contact" class="header-link">Contact</a>
+                    <button class="header-logout-btn" onclick="logout()">Logout</button>
+                    <button class="header-close-btn" onclick="closeTab()">Close</button>
+                </nav>
+            </div>
+        </header>
+
         <div class="container">
 
             <!-- TABLE OF CONTENTS -->
@@ -1275,27 +1332,17 @@
             <div class="toc-box" id="top">
 
                 <h1>Table of Contents</h1>
+                <p class="toc-subtitle">Explore the writings and reflections of my life</p>
 
                 <div class="toc-links">
 
-                    <a href="#intro">My Life's True Colours</a>
+                    <a href="#intro"><span class="toc-num">I.</span> My Life's True Colours</a>
 
-                    <a href="#ourlives">Our Lives</a>
+                    <a href="#ourlives"><span class="toc-num">II.</span> Our Lives</a>
 
-                    <a href="#love">Love</a>
-
-                    <a href="#gallery">Gallery</a>
-
-                    <a href="#contact">Contact</a>
-
-                    <a href="#deeper">Enter Deeper</a>
+                    <a href="#love"><span class="toc-num">III.</span> Love</a>
 
                 </div>
-
-                <button class="logout-btn"
-                        onclick="logout()">
-                    Logout
-                </button>
 
             </div>
 
@@ -1435,41 +1482,6 @@
                 <p style="margin-top:14px;">Valentine's Day, though a symbolic celebration of love, often leaves me wondering — should love be confined to a single day? Isn't its magic meant for every moment, not just one date on the calendar? To me, every day should be a Valentine's Day, because love isn't seasonal — it's eternal. Every moment lived in love is a moment truly lived.</p>
 
                 <p style="margin-top:14px; font-style:italic; opacity:0.9;">So, let love be the air you breathe. Let it be shared, spread, felt. It brings eternal peace, immense joy, and a strange sense of wholeness. Love, in all its forms, is the greatest gift of God — unseen, but unforgettable.</p>
-
-                <a class="back" href="#top">
-                    Back to Top
-                </a>
-
-            </div>
-
-            <div class="section" id="gallery">
-
-                <h2>Gallery</h2>
-
-                <p style="opacity:0.75; font-style:italic; font-size:16px;">A collection of cherished moments — through the memory lane.</p>
-
-                <div class="gallery-grid">
-                    <div class="gallery-frame"><img src="images/1.webp" alt="Photo 1" loading="lazy"><span class="frame-num">01</span></div>
-                    <div class="gallery-frame"><img src="images/2.webp" alt="Photo 2" loading="lazy"><span class="frame-num">02</span></div>
-                    <div class="gallery-frame"><img src="images/3.webp" alt="Photo 3" loading="lazy"><span class="frame-num">03</span></div>
-                    <div class="gallery-frame"><img src="images/4.webp" alt="Photo 4" loading="lazy"><span class="frame-num">04</span></div>
-                    <div class="gallery-frame"><img src="images/5.webp" alt="Photo 5" loading="lazy"><span class="frame-num">05</span></div>
-                    <div class="gallery-frame"><img src="images/6.webp" alt="Photo 6" loading="lazy"><span class="frame-num">06</span></div>
-                    <div class="gallery-frame"><img src="images/7.webp" alt="Photo 7" loading="lazy"><span class="frame-num">07</span></div>
-                    <div class="gallery-frame"><img src="images/8.webp" alt="Photo 8" loading="lazy"><span class="frame-num">08</span></div>
-                    <div class="gallery-frame"><img src="images/9.webp" alt="Photo 9" loading="lazy"><span class="frame-num">09</span></div>
-                    <div class="gallery-frame"><img src="images/10.webp" alt="Photo 10" loading="lazy"><span class="frame-num">10</span></div>
-                    <div class="gallery-frame"><img src="images/11.webp" alt="Photo 11" loading="lazy"><span class="frame-num">11</span></div>
-                    <div class="gallery-frame"><img src="images/12.webp" alt="Photo 12" loading="lazy"><span class="frame-num">12</span></div>
-                    <div class="gallery-frame"><div class="placeholder-icon">🖼</div><span>Photo 13</span><span class="frame-num">13</span></div>
-                    <div class="gallery-frame"><div class="placeholder-icon">🖼</div><span>Photo 14</span><span class="frame-num">14</span></div>
-                    <div class="gallery-frame"><div class="placeholder-icon">🖼</div><span>Photo 15</span><span class="frame-num">15</span></div>
-                    <div class="gallery-frame"><div class="placeholder-icon">🖼</div><span>Photo 16</span><span class="frame-num">16</span></div>
-                    <div class="gallery-frame"><div class="placeholder-icon">🖼</div><span>Photo 17</span><span class="frame-num">17</span></div>
-                    <div class="gallery-frame"><div class="placeholder-icon">🖼</div><span>Photo 18</span><span class="frame-num">18</span></div>
-                    <div class="gallery-frame"><div class="placeholder-icon">🖼</div><span>Photo 19</span><span class="frame-num">19</span></div>
-                    <div class="gallery-frame"><div class="placeholder-icon">🖼</div><span>Photo 20</span><span class="frame-num">20</span></div>
-                </div>
 
                 <a class="back" href="#top">
                     Back to Top
@@ -1676,6 +1688,10 @@
             document.getElementById("password").focus();
         }
 
+        function closeTab() {
+            window.close();
+        }
+
         // Enter key on login
         document.getElementById("password").addEventListener("keydown", function (e) {
             if (e.key === "Enter") checkPassword();
@@ -1806,7 +1822,18 @@
 
                 document.getElementById("synopsisPage").style.display = "none";
                 document.getElementById("contentPage").style.display  = "block";
-                window.scrollTo({ top: 0 });
+                
+                // Scroll to URL hash target if present, otherwise top
+                if (window.location.hash) {
+                    const target = document.querySelector(window.location.hash);
+                    if (target) {
+                        target.scrollIntoView({ behavior: "smooth" });
+                    } else {
+                        window.scrollTo({ top: 0 });
+                    }
+                } else {
+                    window.scrollTo({ top: 0 });
+                }
 
                 // Show navigation dock
                 document.getElementById("mainNavDock").classList.add("dock-visible");
